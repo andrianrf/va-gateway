@@ -1,0 +1,23 @@
+image: atlassian/default-image:2
+
+pipelines:
+  branches:
+    prod-bsb:
+      - step:
+          name: build application jar
+          caches:
+            - maven
+          script:
+            - mvn package -Dmaven.test.skip=true
+          artifacts:
+            - target/*.jar
+      - step:
+          name: Docker build
+          services:
+            - docker
+          caches:
+            - docker
+          script:
+            - docker build --memory=3072M -t visiondgmlpt/va-gateway:prod-bsb .
+            - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+            - docker push visiondgmlpt/va-gateway:prod-bsb
