@@ -17,18 +17,18 @@ public class transferVAv1Controller {
 
     @SneakyThrows
     @PostMapping("/inquiry")
-    public ResponseEntity<?> inquiry(@RequestHeader("Authorization") String authorizationH,
-                                     @RequestHeader("Authorization-Customer") String authorizationcustomerH,
-                                     @RequestHeader("X-TIMESTAMP") String timestampH,
-                                     @RequestHeader("X-SIGNATURE") String signatureH,
-                                     @RequestHeader("X-ORIGIN") String originH,
-                                     @RequestHeader("X-PARTNER-ID") String partnerH,
-                                     @RequestHeader("X-EXTERNAL-ID") String externalH,
-                                     @RequestHeader("X-IP-ADDRESS") String addressH,
-                                     @RequestHeader("X-DEVICE-ID") String deviceH,
-                                     @RequestHeader("X-LATITUDE") String latitudeH,
-                                     @RequestHeader("X-LONGITUDE") String longitudeH,
-                                     @RequestHeader("CHANNEL-ID") String channelH,
+    public ResponseEntity<?> inquiry(@RequestHeader(value="Authorization", required=false) String authorization,
+                                     @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
+                                     @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
+                                     @RequestHeader(value="X-SIGNATURE", required=false) String signature,
+                                     @RequestHeader(value="X-ORIGIN", required=false) String origin,
+                                     @RequestHeader(value="X-PARTNER-ID", required=false) String partner,
+                                     @RequestHeader(value="X-EXTERNAL-ID", required=false) String external,
+                                     @RequestHeader(value="X-IP-ADDRESS", required=false) String address,
+                                     @RequestHeader(value="X-DEVICE-ID", required=false) String device,
+                                     @RequestHeader(value="X-LATITUDE", required=false) String latitude,
+                                     @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
+                                     @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                      @RequestBody Map<String, Object> requestBody) {
         String respon = "{ \"responseCode\":\"2002400\", \"responseMessage\":\"Success\", \"virtualAccountData\":{ \"inquiryStatus\":\"00\", \"inquiryReason\":{ \"english\":\"Success\", \"indonesia\":\"Sukses\" }, \"partnerServiceId\":\" 088899\", \"customerNo\":\"12345678901234567890\", \"virtualAccountNo\":\" 08889912345678901234567890\", \"virtualAccountName\":\"Jane Doe\", \"virtualAccountEmail\":\"janeDoe@email.co.id\", \"virtualAccountPhone\":\"62818xxxxxxxxx\", \"inquiryRequestId\":\"abcdef-123456-abcdef\", \"totalAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"subCompany\":\"12345\", \"billDetails\":[ { \"billCode\":\"01\", \"billNo\":\"123456789012345678\", \"billName\":\"Bill A for Jan\", \"billShortName\":\"Bill A\", \"billDescription\":{ \"english\":\"Maintenance\", \"indonesia\":\"Pemeliharaan\" }, \"billSubCompany\":\"00001\", \"billAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"billAmountLabel\":\"Total Tagihan\", \"billAmountValue\":\"Rp. 50.000,-\", \"additionalInfo\":{ } } ], \"freeTexts\":[{ \"english\":\"Free text\", \"indonesia\":\"Tulisan bebas\" } ], \"virtualAccountTrxType\":\"1\", \"feeAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"additionalInfo\":{ \"deviceId\":\"12345679237\", \"channel\":\"mobilephone\" } } }";
         ObjectMapper objectMapper =
@@ -41,18 +41,18 @@ public class transferVAv1Controller {
 
     @SneakyThrows
     @PostMapping("/payment")
-    public ResponseEntity<?> payment(@RequestHeader("Authorization") String authorizationH,
-                                     @RequestHeader("Authorization-Customer") String authorizationcustomerH,
-                                     @RequestHeader("X-TIMESTAMP") String timestampH,
-                                     @RequestHeader("X-SIGNATURE") String signatureH,
-                                     @RequestHeader("X-ORIGIN") String originH,
-                                     @RequestHeader("X-PARTNER-ID") String partnerH,
-                                     @RequestHeader("X-EXTERNAL-ID") String externalH,
-                                     @RequestHeader("X-IP-ADDRESS") String addressH,
-                                     @RequestHeader("X-DEVICE-ID") String deviceH,
-                                     @RequestHeader("X-LATITUDE") String latitudeH,
-                                     @RequestHeader("X-LONGITUDE") String longitudeH,
-                                     @RequestHeader("CHANNEL-ID") String channelH,
+    public ResponseEntity<?> payment(@RequestHeader(value="Authorization", required=false) String authorization,
+                                     @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
+                                     @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
+                                     @RequestHeader(value="X-SIGNATURE", required=false) String signature,
+                                     @RequestHeader(value="X-ORIGIN", required=false) String origin,
+                                     @RequestHeader(value="X-PARTNER-ID", required=false) String partner,
+                                     @RequestHeader(value="X-EXTERNAL-ID", required=false) String external,
+                                     @RequestHeader(value="X-IP-ADDRESS", required=false) String address,
+                                     @RequestHeader(value="X-DEVICE-ID", required=false) String device,
+                                     @RequestHeader(value="X-LATITUDE", required=false) String latitude,
+                                     @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
+                                     @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                      @RequestBody Map<String, Object> requestBody) {
         String respon = "{\"responseCode\":\"2002500\", \"responseMessage\":\"Success\", \"virtualAccountData\":{ \"paymentFlagReason\":{ \"english\":\"Success\", \"indonesia\":\"Sukses\" }, \"partnerServiceId\":\" 088899\", \"customerNo\":\"12345678901234567890\", \"virtualAccountNo\":\" 08889912345678901234567890\", \"virtualAccountName\":\"Jane Doe\", \"virtualAccountEmail\":\"janedoe@email.com\", \"virtualAccountPhone\":\"62818xxxxxxxxx\", \"trxId\":\"abcdefgh1234\", \"paymentRequestId\":\"abcdef-123456-abcdef\", \"paidAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"paidBills\":\"95000\", \"totalAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"trxDateTime\":\"20201231T235959Z\", \"referenceNo\":\"123456789012345\", \"journalNum\":\"123456\", \"paymentType\":1, \"flagAdvise\":\"Y\", \"paymentFlagStatus\":\"00\", \"billDetails\":[ { \"billerReferenceId\":\"123456789012345678\", \"billCode\":\"01\", \"billNo\":\"123456789012345678\", \"billName\":\"Bill A for Jan\", \"billShortName\":\"Bill A\", \"billDescription\":{ \"english\":\"Maintenance\", \"indonesia\":\"Pemeliharaan\" }, \"billSubCompany\":\"00001\", \"billAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\"}, \"additionalInfo\":{ }, \"status\":\"00\", \"reason\":{ \"english\":\"Success\", \"indonesia\":\"Sukses\" } } ], \"freeTexts\":[ { \"english\":\"Free text\", \"indonesia\":\"Tulisan bebas\" } ] }, \"additionalInfo\":{ } }";
         ObjectMapper objectMapper =
@@ -65,18 +65,18 @@ public class transferVAv1Controller {
 
     @SneakyThrows
     @GetMapping("/status")
-    public ResponseEntity<?> status(@RequestHeader("Authorization") String authorizationH,
-                                    @RequestHeader("Authorization-Customer") String authorizationcustomerH,
-                                    @RequestHeader("X-TIMESTAMP") String timestampH,
-                                    @RequestHeader("X-SIGNATURE") String signatureH,
-                                    @RequestHeader("X-ORIGIN") String originH,
-                                    @RequestHeader("X-PARTNER-ID") String partnerH,
-                                    @RequestHeader("X-EXTERNAL-ID") String externalH,
-                                    @RequestHeader("X-IP-ADDRESS") String addressH,
-                                    @RequestHeader("X-DEVICE-ID") String deviceH,
-                                    @RequestHeader("X-LATITUDE") String latitudeH,
-                                    @RequestHeader("X-LONGITUDE") String longitudeH,
-                                    @RequestHeader("CHANNEL-ID") String channelH,
+    public ResponseEntity<?> status(@RequestHeader(value="Authorization", required=false) String authorization,
+                                    @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
+                                    @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
+                                    @RequestHeader(value="X-SIGNATURE", required=false) String signature,
+                                    @RequestHeader(value="X-ORIGIN", required=false) String origin,
+                                    @RequestHeader(value="X-PARTNER-ID", required=false) String partner,
+                                    @RequestHeader(value="X-EXTERNAL-ID", required=false) String external,
+                                    @RequestHeader(value="X-IP-ADDRESS", required=false) String address,
+                                    @RequestHeader(value="X-DEVICE-ID", required=false) String device,
+                                    @RequestHeader(value="X-LATITUDE", required=false) String latitude,
+                                    @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
+                                    @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                     @RequestBody Map<String, Object> requestBody) {
         String respon = "{ \"responseCode\":\"2002600\", \"responseMessage\":\"Success\", \"virtualAccountData\":{ \"paymentFlagReason\":{ \"english\":\"Success\", \"indonesia\":\"Sukses\" }, \"partnerServiceId\":\" 088899\", \"customerNo\":\"12345678901234567890\", \"virtualAccountNo\":\" 08889912345678901234567890\", \"inquiryRequestId\":\"abcdef-123456-abcdef\", \"paymentRequestId\":\"abcdef-123456-abcdef\", \"paidAmount\":[ { \"value\":\"12345678.00\", \"currency\":\"IDR\" } ], \"paidBills\":\"95000\", \"totalAmount\":[ { \"value\":\"12345678.00\", \"currency\":\"IDR\" } ], \"trxDateTime\":\"20201231T235959Z\", \"transactionDate\":\"20201230T235959Z\", \"referenceNo\":\"123456789012345\", \"paymentType\":1, \"flagAdvise\":\"Y\", \"paymentFlagStatus\":\"00\", \"billDetails\":[ { \"billCode\":\"01\", \"billNo\":\"123456789012345678\", \"billName\":\"Bill A for Jan\", \"billShortName\":\"Bill A\", \"billDescription\":{ \"english\":\"Maintenance\", \"indonesia\":\"Pemeliharaan\" }, \"billSubCompany\":\"00001\", \"billAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"additionalInfo\":{ }, \"billReferenceNo\":\"123456789012345\", \"status\":\"00\", \"reason\":{ \"english\":\"Success\", \"indonesia\":\"Sukses\" } } ], \"freeTexts\":[ { \"english\":\"Free text\", \"indonesia\":\"Tulisan bebas\" } ] }, \"additionalInfo\":{ } }";
         ObjectMapper objectMapper =
@@ -89,18 +89,18 @@ public class transferVAv1Controller {
 
     @SneakyThrows
     @PostMapping("/create-va")
-    public ResponseEntity<?> createVa(@RequestHeader("Authorization") String authorizationH,
-                                      @RequestHeader("Authorization-Customer") String authorizationcustomerH,
-                                      @RequestHeader("X-TIMESTAMP") String timestampH,
-                                      @RequestHeader("X-SIGNATURE") String signatureH,
-                                      @RequestHeader("X-ORIGIN") String originH,
-                                      @RequestHeader("X-PARTNER-ID") String partnerH,
-                                      @RequestHeader("X-EXTERNAL-ID") String externalH,
-                                      @RequestHeader("X-IP-ADDRESS") String addressH,
-                                      @RequestHeader("X-DEVICE-ID") String deviceH,
-                                      @RequestHeader("X-LATITUDE") String latitudeH,
-                                      @RequestHeader("X-LONGITUDE") String longitudeH,
-                                      @RequestHeader("CHANNEL-ID") String channelH,
+    public ResponseEntity<?> createVa(@RequestHeader(value="Authorization", required=false) String authorization,
+                                      @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
+                                      @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
+                                      @RequestHeader(value="X-SIGNATURE", required=false) String signature,
+                                      @RequestHeader(value="X-ORIGIN", required=false) String origin,
+                                      @RequestHeader(value="X-PARTNER-ID", required=false) String partner,
+                                      @RequestHeader(value="X-EXTERNAL-ID", required=false) String external,
+                                      @RequestHeader(value="X-IP-ADDRESS", required=false) String address,
+                                      @RequestHeader(value="X-DEVICE-ID", required=false) String device,
+                                      @RequestHeader(value="X-LATITUDE", required=false) String latitude,
+                                      @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
+                                      @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                       @RequestBody Map<String, Object> requestBody) {
         String respon = "";
         ObjectMapper objectMapper =
@@ -113,18 +113,18 @@ public class transferVAv1Controller {
 
     @SneakyThrows
     @PutMapping("/update-va")
-    public ResponseEntity<?> updateVa(@RequestHeader("Authorization") String authorizationH,
-                                      @RequestHeader("Authorization-Customer") String authorizationcustomerH,
-                                      @RequestHeader("X-TIMESTAMP") String timestampH,
-                                      @RequestHeader("X-SIGNATURE") String signatureH,
-                                      @RequestHeader("X-ORIGIN") String originH,
-                                      @RequestHeader("X-PARTNER-ID") String partnerH,
-                                      @RequestHeader("X-EXTERNAL-ID") String externalH,
-                                      @RequestHeader("X-IP-ADDRESS") String addressH,
-                                      @RequestHeader("X-DEVICE-ID") String deviceH,
-                                      @RequestHeader("X-LATITUDE") String latitudeH,
-                                      @RequestHeader("X-LONGITUDE") String longitudeH,
-                                      @RequestHeader("CHANNEL-ID") String channelH,
+    public ResponseEntity<?> updateVa(@RequestHeader(value="Authorization", required=false) String authorization,
+                                      @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
+                                      @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
+                                      @RequestHeader(value="X-SIGNATURE", required=false) String signature,
+                                      @RequestHeader(value="X-ORIGIN", required=false) String origin,
+                                      @RequestHeader(value="X-PARTNER-ID", required=false) String partner,
+                                      @RequestHeader(value="X-EXTERNAL-ID", required=false) String external,
+                                      @RequestHeader(value="X-IP-ADDRESS", required=false) String address,
+                                      @RequestHeader(value="X-DEVICE-ID", required=false) String device,
+                                      @RequestHeader(value="X-LATITUDE", required=false) String latitude,
+                                      @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
+                                      @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                       @RequestBody Map<String, Object> requestBody) {
         String respon = "{ \"responseCode\":\"2002800\", \"responseMessage\":\"Success\", \"virtualAccountData\":{ \"partnerServiceId\":\" 088899\", \"customerNo\":\"12345678901234567890\", \"virtualAccountNo\":\" 08889912345678901234567890\", \"virtualAccountName\":\"Jane Doe\", \"virtualAccountEmail\":\"janedoe@email.com\", \"virtualAccountPhone\":\"62818xxxxxxxxx\", \"trxId\":\"abcdefgh1234\", \"totalAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"billDetails\":[ { \"billCode\":\"01\", \"billNo\":\"123456789012345678\", \"billName\":\"Bill A for Jan\", \"billShortName\":\"Bill A\", \"billDescription\":{ \"english\":\"Maintenance\", \"indonesia\":\"Pemeliharaan\" }, \"billSubCompany\":\"00001\", \"billAmount\":{\"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"additionalInfo\":{ } } ], \"virtualAccountTrxType\":\"1\", \"feeAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"expiredDate\":\"2020-12-31T23:59:59-07:00\", \"lastUpdateDate\":\"2020-12-31T23:59:59-07:00\", \"paymentDate\":\"2020-12-31T23:59:59-07:00\", \"additionalInfo\":{ \"deviceId\":\"12345679237\", \"channel\":\"mobilephone\" } } }";
         ObjectMapper objectMapper =
@@ -137,18 +137,18 @@ public class transferVAv1Controller {
 
     @SneakyThrows
     @PutMapping("/update-status")
-    public ResponseEntity<?> updateStatus(@RequestHeader("Authorization") String authorizationH,
-                                          @RequestHeader("Authorization-Customer") String authorizationcustomerH,
-                                          @RequestHeader("X-TIMESTAMP") String timestampH,
-                                          @RequestHeader("X-SIGNATURE") String signatureH,
-                                          @RequestHeader("X-ORIGIN") String originH,
-                                          @RequestHeader("X-PARTNER-ID") String partnerH,
-                                          @RequestHeader("X-EXTERNAL-ID") String externalH,
-                                          @RequestHeader("X-IP-ADDRESS") String addressH,
-                                          @RequestHeader("X-DEVICE-ID") String deviceH,
-                                          @RequestHeader("X-LATITUDE") String latitudeH,
-                                          @RequestHeader("X-LONGITUDE") String longitudeH,
-                                          @RequestHeader("CHANNEL-ID") String channelH,
+    public ResponseEntity<?> updateStatus(@RequestHeader(value="Authorization", required=false) String authorization,
+                                          @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
+                                          @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
+                                          @RequestHeader(value="X-SIGNATURE", required=false) String signature,
+                                          @RequestHeader(value="X-ORIGIN", required=false) String origin,
+                                          @RequestHeader(value="X-PARTNER-ID", required=false) String partner,
+                                          @RequestHeader(value="X-EXTERNAL-ID", required=false) String external,
+                                          @RequestHeader(value="X-IP-ADDRESS", required=false) String address,
+                                          @RequestHeader(value="X-DEVICE-ID", required=false) String device,
+                                          @RequestHeader(value="X-LATITUDE", required=false) String latitude,
+                                          @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
+                                          @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                           @RequestBody Map<String, Object> requestBody) {
         String respon = "{ \"responseCode\":\"2002900\", \"responseMessage\":\"Success\", \"virtualAccountData\":{ \"partnerServiceId\":\" 088899\", \"customerNo\":\"12345678901234567890\", \"virtualAccountNo\":\" 08889912345678901234567890\", \"virtualAccountName\":\"Jane Doe\", \"virtualAccountEmail\":\"janedoe@email.com\", \"virtualAccountPhone\":\"62818xxxxxxxxx\", \"trxId\":\"abcdefgh1234\", \"totalAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"virtualAccountTrxType\":\"1\", \"feeAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"expiredDate\":\"2020-12-31T23:59:59-07:00\", \"lastUpdateDate\":\"2020-12-31T23:59:59-07:00\", \"paymentDate\":\"2020-12-31T23:59:59-07:00\", \"additionalInfo\":{ \"deviceId\":\"12345679237\", \"channel\":\"mobilephone\" } } }";
         ObjectMapper objectMapper =
@@ -161,18 +161,18 @@ public class transferVAv1Controller {
 
     @SneakyThrows
     @GetMapping("/inquiry-va")
-    public ResponseEntity<?> inquiryVa(@RequestHeader("Authorization") String authorizationH,
-                                       @RequestHeader("Authorization-Customer") String authorizationcustomerH,
-                                       @RequestHeader("X-TIMESTAMP") String timestampH,
-                                       @RequestHeader("X-SIGNATURE") String signatureH,
-                                       @RequestHeader("X-ORIGIN") String originH,
-                                       @RequestHeader("X-PARTNER-ID") String partnerH,
-                                       @RequestHeader("X-EXTERNAL-ID") String externalH,
-                                       @RequestHeader("X-IP-ADDRESS") String addressH,
-                                       @RequestHeader("X-DEVICE-ID") String deviceH,
-                                       @RequestHeader("X-LATITUDE") String latitudeH,
-                                       @RequestHeader("X-LONGITUDE") String longitudeH,
-                                       @RequestHeader("CHANNEL-ID") String channelH,
+    public ResponseEntity<?> inquiryVa(@RequestHeader(value="Authorization", required=false) String authorization,
+                                       @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
+                                       @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
+                                       @RequestHeader(value="X-SIGNATURE", required=false) String signature,
+                                       @RequestHeader(value="X-ORIGIN", required=false) String origin,
+                                       @RequestHeader(value="X-PARTNER-ID", required=false) String partner,
+                                       @RequestHeader(value="X-EXTERNAL-ID", required=false) String external,
+                                       @RequestHeader(value="X-IP-ADDRESS", required=false) String address,
+                                       @RequestHeader(value="X-DEVICE-ID", required=false) String device,
+                                       @RequestHeader(value="X-LATITUDE", required=false) String latitude,
+                                       @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
+                                       @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                        @RequestBody Map<String, Object> requestBody) {
         String respon = "{ \"responseCode\":2003000, \"responseMessage\":\"Success\", \"virtualAccountData\":{ \"partnerServiceId\":\" 088899\", \"customerNo\":\"12345678901234567890\", \"virtualAccountNo\":\" 08889912345678901234567890\", \"virtualAccountName\":\"Jane Doe\", \"virtualAccountEmail\":\"janedoe@email.com\", \"virtualAccountPhone\":\"62818xxxxxxxxx\", \"trxId\":\"abcdefgh1234\", \"totalAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"billDetails\":[ {\"billCode\":\"01\", \"billNo\":\"123456789012345678\", \"billName\":\"Bill A for Jan\", \"billShortName\":\"Bill A\", \"billDescription\":{ \"english\":\"Maintenance\", \"indonesia\":\"Pemeliharaan\" }, \"billSubCompany\":\"00001\", \"billAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"additionalInfo\":{ } } ], \"freeTexts\":[ { \"english\":\"Free text\", \"indonesia\":\"Tulisan bebas\" } ], \"virtualAccountTrxType\":\"1\", \"feeAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"expiredDate\":\"2020-12-31T23:59:59-07:00\", \"lastUpdateDate\":\"2020-12-31T23:59:59-07:00\", \"paymentDate\":\"2020-12-31T23:59:59-07:00\", \"additionalInfo\":{ \"deviceId\":\"12345679237\", \"channel\":\"mobilephone\" } } }";
         ObjectMapper objectMapper =
@@ -185,18 +185,18 @@ public class transferVAv1Controller {
 
     @SneakyThrows
     @DeleteMapping("/delete-va")
-    public ResponseEntity<?> deleteVa(@RequestHeader("Authorization") String authorizationH,
-                                      @RequestHeader("Authorization-Customer") String authorizationcustomerH,
-                                      @RequestHeader("X-TIMESTAMP") String timestampH,
-                                      @RequestHeader("X-SIGNATURE") String signatureH,
-                                      @RequestHeader("X-ORIGIN") String originH,
-                                      @RequestHeader("X-PARTNER-ID") String partnerH,
-                                      @RequestHeader("X-EXTERNAL-ID") String externalH,
-                                      @RequestHeader("X-IP-ADDRESS") String addressH,
-                                      @RequestHeader("X-DEVICE-ID") String deviceH,
-                                      @RequestHeader("X-LATITUDE") String latitudeH,
-                                      @RequestHeader("X-LONGITUDE") String longitudeH,
-                                      @RequestHeader("CHANNEL-ID") String channelH,
+    public ResponseEntity<?> deleteVa(@RequestHeader(value="Authorization", required=false) String authorization,
+                                      @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
+                                      @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
+                                      @RequestHeader(value="X-SIGNATURE", required=false) String signature,
+                                      @RequestHeader(value="X-ORIGIN", required=false) String origin,
+                                      @RequestHeader(value="X-PARTNER-ID", required=false) String partner,
+                                      @RequestHeader(value="X-EXTERNAL-ID", required=false) String external,
+                                      @RequestHeader(value="X-IP-ADDRESS", required=false) String address,
+                                      @RequestHeader(value="X-DEVICE-ID", required=false) String device,
+                                      @RequestHeader(value="X-LATITUDE", required=false) String latitude,
+                                      @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
+                                      @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                       @RequestBody Map<String, Object> requestBody) {
         String respon = "{ \"responseCode\":\"2003100\", \"responseMessage\":\"Success\", \"virtualAccountData\":{ \"partnerServiceId\":\" 088899\", \"customerNo\":\"12345678901234567890\", \"virtualAccountNo\":\" 08889912345678901234567890\", \"trxId\":\"abcdefgh1234\", \"additionalInfo\":{ } } }";
         ObjectMapper objectMapper =
@@ -209,18 +209,18 @@ public class transferVAv1Controller {
 
     @SneakyThrows
     @GetMapping("/inquiry-intrabank")
-    public ResponseEntity<?> inquiryIntrabank(@RequestHeader("Authorization") String authorizationH,
-                                              @RequestHeader("Authorization-Customer") String authorizationcustomerH,
-                                              @RequestHeader("X-TIMESTAMP") String timestampH,
-                                              @RequestHeader("X-SIGNATURE") String signatureH,
-                                              @RequestHeader("X-ORIGIN") String originH,
-                                              @RequestHeader("X-PARTNER-ID") String partnerH,
-                                              @RequestHeader("X-EXTERNAL-ID") String externalH,
-                                              @RequestHeader("X-IP-ADDRESS") String addressH,
-                                              @RequestHeader("X-DEVICE-ID") String deviceH,
-                                              @RequestHeader("X-LATITUDE") String latitudeH,
-                                              @RequestHeader("X-LONGITUDE") String longitudeH,
-                                              @RequestHeader("CHANNEL-ID") String channelH,
+    public ResponseEntity<?> inquiryIntrabank(@RequestHeader(value="Authorization", required=false) String authorization,
+                                              @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
+                                              @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
+                                              @RequestHeader(value="X-SIGNATURE", required=false) String signature,
+                                              @RequestHeader(value="X-ORIGIN", required=false) String origin,
+                                              @RequestHeader(value="X-PARTNER-ID", required=false) String partner,
+                                              @RequestHeader(value="X-EXTERNAL-ID", required=false) String external,
+                                              @RequestHeader(value="X-IP-ADDRESS", required=false) String address,
+                                              @RequestHeader(value="X-DEVICE-ID", required=false) String device,
+                                              @RequestHeader(value="X-LATITUDE", required=false) String latitude,
+                                              @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
+                                              @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                               @RequestBody Map<String, Object> requestBody) {
         String respon = "{ \"responseCode\":2003200, \"responseMessage\":\"Success\", \"virtualAccountdata\":{ \"inquiryStatus\":\"00\", \"inquiryReason\":{ \"english\":\"Success\", \"indonesia\":\"Sukses\" }, \"partnerServiceId\":\" 088899\", \"partnerReferenceNo\":\"abcdef-123456-abcdef\", \"customerNo\":\"12345678901234567890\", \"virtualAccountNo\":\" 08889912345678901234567890\", \"virtualAccountName\":\"Jane Doe\", \"virtualAccountEmail\":\"janeDoe@email.co.id\", \"virtualAccountPhone\":\"62818xxxxxxxxx\", \"sourceAccountNo\":\"1234567890\", \"sourceAccountType\":\"S\", \"inquiryRequestId\":\"abcdef-123456-abcdef\", \"totalAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"billDetails\":[ { \"billCode\":\"01\", \"billNo\":\"123456789012345678\", \"billName\":\"Bill A for Jan\", \"billShortName\":\"Bill A\", \"billDescription\":{ \"english\":\"Maintenance\", \"indonesia\":\"Pemeliharaan\" }, \"billSubCompany\":\"00001\", \"billAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"billAmountLabel\":\"Total Tagihan\", \"billAmountValue\":\"Rp. 50.000,-\", \"additionalInfo\":{ } } ], \"freeTexts\":[ { \"english\":\"Free text\", \"indonesia\":\"Tulisan bebas\" } \"virtualAccountTrxType\":\"1\", \"feeAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"productName\":\"Pendidikan\", \"additionalInfo\":{ \"deviceId\":\"12345679237\", \"channel\":\"mobilephone\" } } }";
         ObjectMapper objectMapper =
@@ -233,18 +233,18 @@ public class transferVAv1Controller {
 
     @SneakyThrows
     @PostMapping("/payment-intrabank")
-    public ResponseEntity<?> paymentIntrabank(@RequestHeader("Authorization") String authorizationH,
-                                              @RequestHeader("Authorization-Customer") String authorizationcustomerH,
-                                              @RequestHeader("X-TIMESTAMP") String timestampH,
-                                              @RequestHeader("X-SIGNATURE") String signatureH,
-                                              @RequestHeader("X-ORIGIN") String originH,
-                                              @RequestHeader("X-PARTNER-ID") String partnerH,
-                                              @RequestHeader("X-EXTERNAL-ID") String externalH,
-                                              @RequestHeader("X-IP-ADDRESS") String addressH,
-                                              @RequestHeader("X-DEVICE-ID") String deviceH,
-                                              @RequestHeader("X-LATITUDE") String latitudeH,
-                                              @RequestHeader("X-LONGITUDE") String longitudeH,
-                                              @RequestHeader("CHANNEL-ID") String channelH,
+    public ResponseEntity<?> paymentIntrabank(@RequestHeader(value="Authorization", required=false) String authorization,
+                                              @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
+                                              @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
+                                              @RequestHeader(value="X-SIGNATURE", required=false) String signature,
+                                              @RequestHeader(value="X-ORIGIN", required=false) String origin,
+                                              @RequestHeader(value="X-PARTNER-ID", required=false) String partner,
+                                              @RequestHeader(value="X-EXTERNAL-ID", required=false) String external,
+                                              @RequestHeader(value="X-IP-ADDRESS", required=false) String address,
+                                              @RequestHeader(value="X-DEVICE-ID", required=false) String device,
+                                              @RequestHeader(value="X-LATITUDE", required=false) String latitude,
+                                              @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
+                                              @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                               @RequestBody Map<String, Object> requestBody) {
         String respon = "";
         ObjectMapper objectMapper =
@@ -257,18 +257,18 @@ public class transferVAv1Controller {
 
     @SneakyThrows
     @PostMapping("/notify-payment-intrabank")
-    public ResponseEntity<?> notifyPaymentIntrabank(@RequestHeader("Authorization") String authorizationH,
-                                                    @RequestHeader("Authorization-Customer") String authorizationcustomerH,
-                                                    @RequestHeader("X-TIMESTAMP") String timestampH,
-                                                    @RequestHeader("X-SIGNATURE") String signatureH,
-                                                    @RequestHeader("X-ORIGIN") String originH,
-                                                    @RequestHeader("X-PARTNER-ID") String partnerH,
-                                                    @RequestHeader("X-EXTERNAL-ID") String externalH,
-                                                    @RequestHeader("X-IP-ADDRESS") String addressH,
-                                                    @RequestHeader("X-DEVICE-ID") String deviceH,
-                                                    @RequestHeader("X-LATITUDE") String latitudeH,
-                                                    @RequestHeader("X-LONGITUDE") String longitudeH,
-                                                    @RequestHeader("CHANNEL-ID") String channelH,
+    public ResponseEntity<?> notifyPaymentIntrabank(@RequestHeader(value="Authorization", required=false) String authorization,
+                                                    @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
+                                                    @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
+                                                    @RequestHeader(value="X-SIGNATURE", required=false) String signature,
+                                                    @RequestHeader(value="X-ORIGIN", required=false) String origin,
+                                                    @RequestHeader(value="X-PARTNER-ID", required=false) String partner,
+                                                    @RequestHeader(value="X-EXTERNAL-ID", required=false) String external,
+                                                    @RequestHeader(value="X-IP-ADDRESS", required=false) String address,
+                                                    @RequestHeader(value="X-DEVICE-ID", required=false) String device,
+                                                    @RequestHeader(value="X-LATITUDE", required=false) String latitude,
+                                                    @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
+                                                    @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                                     @RequestBody Map<String, Object> requestBody) {
         String respon = "";
         ObjectMapper objectMapper =
@@ -281,18 +281,18 @@ public class transferVAv1Controller {
 
     @SneakyThrows
     @GetMapping("/report")
-    public ResponseEntity<?> report(@RequestHeader("Authorization") String authorizationH,
-                                    @RequestHeader("Authorization-Customer") String authorizationcustomerH,
-                                    @RequestHeader("X-TIMESTAMP") String timestampH,
-                                    @RequestHeader("X-SIGNATURE") String signatureH,
-                                    @RequestHeader("X-ORIGIN") String originH,
-                                    @RequestHeader("X-PARTNER-ID") String partnerH,
-                                    @RequestHeader("X-EXTERNAL-ID") String externalH,
-                                    @RequestHeader("X-IP-ADDRESS") String addressH,
-                                    @RequestHeader("X-DEVICE-ID") String deviceH,
-                                    @RequestHeader("X-LATITUDE") String latitudeH,
-                                    @RequestHeader("X-LONGITUDE") String longitudeH,
-                                    @RequestHeader("CHANNEL-ID") String channelH,
+    public ResponseEntity<?> report(@RequestHeader(value="Authorization", required=false) String authorization,
+                                    @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
+                                    @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
+                                    @RequestHeader(value="X-SIGNATURE", required=false) String signature,
+                                    @RequestHeader(value="X-ORIGIN", required=false) String origin,
+                                    @RequestHeader(value="X-PARTNER-ID", required=false) String partner,
+                                    @RequestHeader(value="X-EXTERNAL-ID", required=false) String external,
+                                    @RequestHeader(value="X-IP-ADDRESS", required=false) String address,
+                                    @RequestHeader(value="X-DEVICE-ID", required=false) String device,
+                                    @RequestHeader(value="X-LATITUDE", required=false) String latitude,
+                                    @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
+                                    @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                     @RequestBody Map<String, Object> requestBody) {
         String respon = "{ \"responseCode\":2003500, \"responseMessage\":\"Success\", \"virtualAccountdata\":[ { \"paymentFlagReason\":{ \"english\":\"Success\", \"indonesia\":\"Sukses\" }, \"partnerServiceId\":\" 088899\", \"customerNo\":\"12345678901234567890\", \"virtualAccountNo\":\" 08889912345678901234567890\", \"virtualAccountName\":\"Jane Doe\", \"virtualAccountEmail\":\"janedoe@email.com\", \"virtualAccountPhone\":\"62818xxxxxxxxx\", \"sourceAccountNo\":\"1234567890\", \"sourceAccountType\":\"S\", \"trxId\":\"abcdefgh1234\", \"inquiryRequestId\":\"abcdef-123456-abcdef\", \"paymentRequestId\":\"abcdef-123456-abcdef\", \"paidAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"paidBills\":\"95000\", \"totalAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"trxDateTime\":\"20201231T235959Z\", \"referenceNo\":\"123456789012345\", \"journalNum\":\"123456\", \"paymentType\":1, \"flagAdvise\":\"Y\", \"billDetails\":[ { \"billCode\":\"01\", \"billNo\":\"123456789012345678\", \"billName\":\"Bill A for Jan\", \"billShortName\":\"Bill A\", \"billDescription\":{ \"english\":\"Maintenance\", \"indonesia\":\"Pemeliharaan\" }, \"billSubCompany\":\"00001\", \"billAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"additionalInfo\":{ }, \"status\":\"00\", \"reason\":{ \"english\":\"Success\", \"indonesia\":\"Sukses\" } } ], \"freeTexts\":[ { \"english\":\"Free text\", \"indonesia\":\"Tulisan bebas\" } ], \"additionalInfo\":{ } } ] }";
         ObjectMapper objectMapper =
