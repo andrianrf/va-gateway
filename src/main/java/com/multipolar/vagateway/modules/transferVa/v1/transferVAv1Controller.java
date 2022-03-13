@@ -272,7 +272,66 @@ public class transferVAv1Controller {
                                               @RequestHeader(value="X-LONGITUDE", required=false) String longitude,
                                               @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                               @RequestBody Map<String, Object> requestBody) {
-        String respon = "{ \"responseCode\":2003200, \"responseMessage\":\"Success\", \"virtualAccountdata\":{ \"inquiryStatus\":\"00\", \"inquiryReason\":{ \"english\":\"Success\", \"indonesia\":\"Sukses\" }, \"partnerServiceId\":\" 088899\", \"partnerReferenceNo\":\"abcdef-123456-abcdef\", \"customerNo\":\"12345678901234567890\", \"virtualAccountNo\":\" 08889912345678901234567890\", \"virtualAccountName\":\"Jane Doe\", \"virtualAccountEmail\":\"janeDoe@email.co.id\", \"virtualAccountPhone\":\"62818xxxxxxxxx\", \"sourceAccountNo\":\"1234567890\", \"sourceAccountType\":\"S\", \"inquiryRequestId\":\"abcdef-123456-abcdef\", \"totalAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"billDetails\":[ { \"billCode\":\"01\", \"billNo\":\"123456789012345678\", \"billName\":\"Bill A for Jan\", \"billShortName\":\"Bill A\", \"billDescription\":{ \"english\":\"Maintenance\", \"indonesia\":\"Pemeliharaan\" }, \"billSubCompany\":\"00001\", \"billAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"billAmountLabel\":\"Total Tagihan\", \"billAmountValue\":\"Rp. 50.000,-\", \"additionalInfo\":{ } } ], \"freeTexts\":[ { \"english\":\"Free text\", \"indonesia\":\"Tulisan bebas\" } \"virtualAccountTrxType\":\"1\", \"feeAmount\":{ \"value\":\"12345678.00\", \"currency\":\"IDR\" }, \"productName\":\"Pendidikan\", \"additionalInfo\":{ \"deviceId\":\"12345679237\", \"channel\":\"mobilephone\" } } }";
+        String respon = "{\n" +
+                " \"responseCode\":2003200,\n" +
+                " \"responseMessage\":\"Success\",\n" +
+                " \"virtualAccountdata\":{\n" +
+                " \"inquiryStatus\":\"00\",\"inquiryReason\":{\n" +
+                " \"english\":\"Success\",\n" +
+                " \"indonesia\":\"Sukses\"\n" +
+                " },\n" +
+                " \"partnerServiceId\":\" 088899\",\n" +
+                " \"partnerReferenceNo\":\"abcdef-123456-abcdef\",\n" +
+                " \"customerNo\":\"12345678901234567890\",\n" +
+                " \"virtualAccountNo\":\" 08889912345678901234567890\",\n" +
+                " \"virtualAccountName\":\"Jane Doe\",\n" +
+                " \"virtualAccountEmail\":\"janeDoe@email.co.id\",\n" +
+                " \"virtualAccountPhone\":\"62818xxxxxxxxx\",\n" +
+                " \"sourceAccountNo\":\"1234567890\",\n" +
+                " \"sourceAccountType\":\"S\",\n" +
+                " \"inquiryRequestId\":\"abcdef-123456-abcdef\",\n" +
+                " \"totalAmount\":{\n" +
+                " \"value\":\"12345678.00\",\n" +
+                " \"currency\":\"IDR\"\n" +
+                " },\n" +
+                " \"billDetails\":[\n" +
+                " {\n" +
+                " \"billCode\":\"01\",\n" +
+                " \"billNo\":\"123456789012345678\",\n" +
+                " \"billName\":\"Bill A for Jan\",\n" +
+                " \"billShortName\":\"Bill A\",\n" +
+                " \"billDescription\":{\n" +
+                " \"english\":\"Maintenance\",\n" +
+                " \"indonesia\":\"Pemeliharaan\"\n" +
+                " },\n" +
+                " \"billSubCompany\":\"00001\",\n" +
+                " \"billAmount\":{\n" +
+                " \"value\":\"12345678.00\",\n" +
+                " \"currency\":\"IDR\"\n" +
+                " },\n" +
+                " \"billAmountLabel\":\"Total Tagihan\",\n" +
+                " \"billAmountValue\":\"Rp. 50.000,-\",\n" +
+                " \"additionalInfo\":{\n" +
+                " }\n" +
+                " }\n" +
+                " ],\n" +
+                " \"freeTexts\":[\n" +
+                " {\n" +
+                " \"english\":\"Free text\",\n" +
+                " \"indonesia\":\"Tulisan bebas\"\n" +
+                " }],\n" +
+                " \"virtualAccountTrxType\":\"1\",\n" +
+                " \"feeAmount\":{\n" +
+                " \"value\":\"12345678.00\",\n" +
+                " \"currency\":\"IDR\"\n" +
+                " },\n" +
+                " \"productName\":\"Pendidikan\",\n" +
+                " \"additionalInfo\":{\n" +
+                " \"deviceId\":\"12345679237\",\n" +
+                " \"channel\":\"mobilephone\"\n" +
+                " }\n" +
+                " }\n" +
+                "}";
         ObjectMapper objectMapper =
                 new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.registerModule(new JavaTimeModule());
