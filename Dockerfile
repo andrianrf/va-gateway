@@ -7,4 +7,4 @@ RUN mkdir "/log"
 ENV TZ="Asia/Jakarta"
 
 COPY target/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar","-Djava.net.preferIPv4Stack=true"]
