@@ -65,7 +65,7 @@ public class transferVAv1Controller {
     }
 
     @SneakyThrows
-    @GetMapping("/status")
+    @PostMapping("/status")
     public ResponseEntity<?> status(@RequestHeader(value="Authorization", required=false) String authorization,
                                     @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
                                     @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
@@ -104,55 +104,57 @@ public class transferVAv1Controller {
                                       @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                       @RequestBody Map<String, Object> requestBody, HttpServletRequest request) {
         String respon = "{\n" +
-                " \"responseCode\":\"2002700\",\n" +
-                " \"responseMessage\":\"Success\",\n" +
-                " \"virtualAccountData\":{\n" +
-                " \"partnerServiceId\":\" 088899\",\n" +
-                " \"customerNo\":\"12345678901234567890\",\n" +
-                " \"virtualAccountNo\":\" 08889912345678901234567890\",\n" +
-                " \"virtualAccountName\":\"Jane Doe\",\n" +
-                " \"virtualAccountEmail\":\"janedoe@email.com\",\n" +
-                " \"virtualAccountPhone\":\"62818xxxxxxxxx\",\n" +
-                " \"trxId\":\"abcdefgh1234\",\n" +
-                " \"totalAmount\":{\n" +
-                " \"value\":\"12345678.00\",\n" +
-                " \"currency\":\"IDR\"\n" +
-                " },\n" +
-                " \"billDetails\":[\n" +
-                " {\n" +
-                " \"billCode\":\"01\",\n" +
-                " \"billNo\":\"123456789012345678\",\"billName\":\"Bill A for Jan\",\n" +
-                " \"billShortName\":\"Bill A\",\n" +
-                " \"billDescription\":{\n" +
-                " \"english\":\"Maintenance\",\n" +
-                " \"indonesia\":\"Pemeliharaan\"\n" +
-                " },\n" +
-                " \"billSubCompany\":\"00001\",\n" +
-                " \"billAmount\":{\n" +
-                " \"value\":\"12345678.00\",\n" +
-                " \"currency\":\"IDR\"\n" +
-                " },\n" +
-                " \"additionalInfo\":{\n" +
-                " }\n" +
-                " }\n" +
-                " ],\n" +
-                " \"freeTexts\":[\n" +
-                " {\n" +
-                " \"english\":\"Free text\",\n" +
-                " \"indonesia\":\"Tulisan bebas\"\n" +
-                " }\n" +
-                " ],\n" +
-                " \"virtualAccountTrxType\":\"1\",\n" +
-                " \"feeAmount\":{\n" +
-                " \"value\":\"12345678.00\",\n" +
-                " \"currency\":\"IDR\"\n" +
-                " },\n" +
-                " \"expiredDate\":\"2020-12-31T23:59:59-07:00\",\n" +
-                " \"additionalInfo\":{\n" +
-                " \"deviceId\":\"12345679237\",\n" +
-                " \"channel\":\"mobilephone\"\n" +
-                " }\n" +
-                " }\n" +
+                "   \"responseCode\":\"2002700\",\n" +
+                "   \"responseMessage\":\"Success\",\n" +
+                "   \"virtualAccountData\":{\n" +
+                "      \"partnerServiceId\":\"  088899\",\n" +
+                "      \"customerNo\":\"12345678901234567890\",\n" +
+                "      \"virtualAccountNo\":\"  08889912345678901234567890\",\n" +
+                "      \"virtualAccountName\":\"Jokul Doe\",\n" +
+                "      \"virtualAccountEmail\":\"jokul@email.com\",\n" +
+                "      \"virtualAccountPhone\":\"6281828384858\",\n" +
+                "      \"trxId\":\"abcdefgh1234\",\n" +
+                "      \"totalAmount\":{\n" +
+                "         \"value\":\"12345678.00\",\n" +
+                "         \"currency\":\"IDR\"\n" +
+                "      },\n" +
+                "      \"billDetails\":[\n" +
+                "         {\n" +
+                "            \"billCode\":\"01\",\n" +
+                "            \"billNo\":\"123456789012345678\",\n" +
+                "            \"billName\":\"Bill A for Jan\",\n" +
+                "            \"billShortName\":\"Bill A\",\n" +
+                "            \"billDescription\":{\n" +
+                "               \"english\":\"Maintenance\",\n" +
+                "               \"indonesia\":\"Pemeliharaan\"\n" +
+                "            },\n" +
+                "            \"billSubCompany\":\"00001\",\n" +
+                "            \"billAmount\":{\n" +
+                "               \"value\":\"12345678.00\",\n" +
+                "               \"currency\":\"IDR\"\n" +
+                "            },\n" +
+                "            \"additionalInfo\":{\n" +
+                "           \n" +
+                "            }\n" +
+                "         }\n" +
+                "      ],\n" +
+                "      \"freeTexts\":[\n" +
+                "         {\n" +
+                "            \"english\":\"Free text\",\n" +
+                "            \"indonesia\":\"Tulisan bebas\"\n" +
+                "         }\n" +
+                "      ],\n" +
+                "      \"virtualAccountTrxType\":\"1\",\n" +
+                "      \"feeAmount\":{\n" +
+                "         \"value\":\"12345678.00\",\n" +
+                "         \"currency\":\"IDR\"\n" +
+                "      },\n" +
+                "      \"expiredDate\":\"2020-12-31T23:59:59-07:00\",\n" +
+                "      \"additionalInfo\":{\n" +
+                "         \"deviceId\":\"12345679237\",\n" +
+                "         \"channel\":\"mobilephone\"\n" +
+                "      }\n" +
+                "   }\n" +
                 "}";
         ObjectMapper objectMapper =
                 new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -211,7 +213,7 @@ public class transferVAv1Controller {
     }
 
     @SneakyThrows
-    @GetMapping("/inquiry-va")
+    @PostMapping("/inquiry-va")
     public ResponseEntity<?> inquiryVa(@RequestHeader(value="Authorization", required=false) String authorization,
                                        @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
                                        @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
@@ -259,7 +261,7 @@ public class transferVAv1Controller {
     }
 
     @SneakyThrows
-    @GetMapping("/inquiry-intrabank")
+    @PostMapping("/inquiry-intrabank")
     public ResponseEntity<?> inquiryIntrabank(@RequestHeader(value="Authorization", required=false) String authorization,
                                               @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
                                               @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
@@ -357,64 +359,79 @@ public class transferVAv1Controller {
                                               @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                               @RequestBody Map<String, Object> requestBody, HttpServletRequest request) {
         String respon = "{\n" +
-                " \"responseCode\":2003200,\n" +
-                " \"responseMessage\":\"Success\",\n" +
-                " \"virtualAccountdata\":{\n" +
-                " \"inquiryStatus\":\"00\",\"inquiryReason\":{\n" +
-                " \"english\":\"Success\",\n" +
-                " \"indonesia\":\"Sukses\"\n" +
-                " },\n" +
-                " \"partnerServiceId\":\" 088899\",\n" +
-                " \"partnerReferenceNo\":\"abcdef-123456-abcdef\",\n" +
-                " \"customerNo\":\"12345678901234567890\",\n" +
-                " \"virtualAccountNo\":\" 08889912345678901234567890\",\n" +
-                " \"virtualAccountName\":\"Jane Doe\",\n" +
-                " \"virtualAccountEmail\":\"janeDoe@email.co.id\",\n" +
-                " \"virtualAccountPhone\":\"62818xxxxxxxxx\",\n" +
-                " \"sourceAccountNo\":\"1234567890\",\n" +
-                " \"sourceAccountType\":\"S\",\n" +
-                " \"inquiryRequestId\":\"abcdef-123456-abcdef\",\n" +
-                " \"totalAmount\":{\n" +
-                " \"value\":\"12345678.00\",\n" +
-                " \"currency\":\"IDR\"\n" +
-                " },\n" +
-                " \"billDetails\":[\n" +
-                " {\n" +
-                " \"billCode\":\"01\",\n" +
-                " \"billNo\":\"123456789012345678\",\n" +
-                " \"billName\":\"Bill A for Jan\",\n" +
-                " \"billShortName\":\"Bill A\",\n" +
-                " \"billDescription\":{\n" +
-                " \"english\":\"Maintenance\",\n" +
-                " \"indonesia\":\"Pemeliharaan\"\n" +
-                " },\n" +
-                " \"billSubCompany\":\"00001\",\n" +
-                " \"billAmount\":{\n" +
-                " \"value\":\"12345678.00\",\n" +
-                " \"currency\":\"IDR\"\n" +
-                " },\n" +
-                " \"billAmountLabel\":\"Total Tagihan\",\n" +
-                " \"billAmountValue\":\"Rp. 50.000,-\",\n" +
-                " \"additionalInfo\":{\n" +
-                " }\n" +
-                " }\n" +
-                " ],\n" +
-                " \"freeTexts\":[\n" +
-                " {\n" +
-                " \"english\":\"Free text\",\n" +
-                " \"indonesia\":\"Tulisan bebas\"\n" +
-                " }],\n" +
-                " \"virtualAccountTrxType\":\"1\",\n" +
-                " \"feeAmount\":{\n" +
-                " \"value\":\"12345678.00\",\n" +
-                " \"currency\":\"IDR\"\n" +
-                " },\n" +
-                " \"productName\":\"Pendidikan\",\n" +
-                " \"additionalInfo\":{\n" +
-                " \"deviceId\":\"12345679237\",\n" +
-                " \"channel\":\"mobilephone\"\n" +
-                " }\n" +
-                " }\n" +
+                "   \"responseCode\":\"2003300\",\n" +
+                "   \"responseMessage\":\"Success\",\n" +
+                "   \"virtualAccountdata\":{\n" +
+                "      \"paymentFlagReason\":{\n" +
+                "         \"english\":\"Success\",\n" +
+                "         \"indonesia\":\"Sukses\"\n" +
+                "      },\n" +
+                "      \"partnerServiceId\":\"  088899\",\n" +
+                "      \"customerNo\":\"12345678901234567890\",\n" +
+                "      \"virtualAccountNo\":\"  08889912345678901234567890\",\n" +
+                "      \"virtualAccountName\":\"Jokul Doe\",\n" +
+                "      \"virtualAccountEmail\":\"jokul@email.com\",\n" +
+                "      \"virtualAccountPhone\":\"6281828384858\",\n" +
+                "      \"sourceAccountNo\":\"1234567890\",\n" +
+                "      \"sourceAccountType\":\"S\",\n" +
+                "      \"inquiryRequestId\":\"abcdef-123456-abcdef\",\n" +
+                "      \"paymentRequestId\":\"abcdef-123456-abcdef\",\n" +
+                "      \"partnerReferenceNo\":\"abcdef-123456-abcdef\",\n" +
+                "      \"referenceNo\":\"abcdef-123456-abcdef\",\n" +
+                "      \"paidAmount\":{\n" +
+                "         \"value\":\"12345678.00\",\n" +
+                "         \"currency\":\"IDR\"\n" +
+                "      },\n" +
+                "      \"paidBills\":\"95000\",\n" +
+                "      \"totalAmount\":{\n" +
+                "         \"value\":\"12345678.00\",\n" +
+                "         \"currency\":\"IDR\"\n" +
+                "      },\n" +
+                "      \"trxDateTime\":\"2020-10-20T17:56:57\",\n" +
+                "      \"referenceNo\":\"123456789012345\",\n" +
+                "      \"journalNum\":\"123456\",\n" +
+                "      \"paymentType\":1,\n" +
+                "      \"flagAdvise\":\"Y\",\n" +
+                "      \"billDetails\":[\n" +
+                "         {\n" +
+                "            \"billCode\":\"01\",\n" +
+                "            \"billNo\":\"123456789012345678\",\n" +
+                "            \"billName\":\"Bill A for Jan\",\n" +
+                "            \"billShortName\":\"Bill A\",\n" +
+                "            \"billDescription\":{\n" +
+                "               \"english\":\"Maintenance\",\n" +
+                "               \"indonesia\":\"Pemeliharaan\"\n" +
+                "            },\n" +
+                "            \"billSubCompany\":\"00001\",\n" +
+                "            \"billAmount\":{\n" +
+                "               \"value\":\"12345678.00\",\n" +
+                "               \"currency\":\"IDR\"\n" +
+                "            },\n" +
+                "            \"additionalInfo\":{\n" +
+                "           \n" +
+                "            },\n" +
+                "            \"status\":\"00\",\n" +
+                "            \"reason\":{\n" +
+                "               \"english\":\"Success\",\n" +
+                "               \"indonesia\":\"Sukses\"\n" +
+                "            }\n" +
+                "         }\n" +
+                "      ],\n" +
+                "      \"freeTexts\":[\n" +
+                "         {\n" +
+                "            \"english\":\"Free text\",\n" +
+                "            \"indonesia\":\"Tulisan bebas\"\n" +
+                "         }\n" +
+                "      ],\n" +
+                "      \"feeAmount\":{\n" +
+                "         \"value\":\"12345678.00\",\n" +
+                "         \"currency\":\"IDR\"\n" +
+                "      },\n" +
+                "      \"productName\":\"Pendidikan\"\n" +
+                "   },\n" +
+                "   \"additionalInfo\":{\n" +
+                "  \n" +
+                "   }\n" +
                 "}";
         ObjectMapper objectMapper =
                 new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -440,64 +457,25 @@ public class transferVAv1Controller {
                                                     @RequestHeader(value="CHANNEL-ID", required=false) String channel,
                                                     @RequestBody Map<String, Object> requestBody, HttpServletRequest request) {
         String respon = "{\n" +
-                " \"responseCode\":2003200,\n" +
-                " \"responseMessage\":\"Success\",\n" +
-                " \"virtualAccountdata\":{\n" +
-                " \"inquiryStatus\":\"00\",\"inquiryReason\":{\n" +
-                " \"english\":\"Success\",\n" +
-                " \"indonesia\":\"Sukses\"\n" +
-                " },\n" +
-                " \"partnerServiceId\":\" 088899\",\n" +
-                " \"partnerReferenceNo\":\"abcdef-123456-abcdef\",\n" +
-                " \"customerNo\":\"12345678901234567890\",\n" +
-                " \"virtualAccountNo\":\" 08889912345678901234567890\",\n" +
-                " \"virtualAccountName\":\"Jane Doe\",\n" +
-                " \"virtualAccountEmail\":\"janeDoe@email.co.id\",\n" +
-                " \"virtualAccountPhone\":\"62818xxxxxxxxx\",\n" +
-                " \"sourceAccountNo\":\"1234567890\",\n" +
-                " \"sourceAccountType\":\"S\",\n" +
-                " \"inquiryRequestId\":\"abcdef-123456-abcdef\",\n" +
-                " \"totalAmount\":{\n" +
-                " \"value\":\"12345678.00\",\n" +
-                " \"currency\":\"IDR\"\n" +
-                " },\n" +
-                " \"billDetails\":[\n" +
-                " {\n" +
-                " \"billCode\":\"01\",\n" +
-                " \"billNo\":\"123456789012345678\",\n" +
-                " \"billName\":\"Bill A for Jan\",\n" +
-                " \"billShortName\":\"Bill A\",\n" +
-                " \"billDescription\":{\n" +
-                " \"english\":\"Maintenance\",\n" +
-                " \"indonesia\":\"Pemeliharaan\"\n" +
-                " },\n" +
-                " \"billSubCompany\":\"00001\",\n" +
-                " \"billAmount\":{\n" +
-                " \"value\":\"12345678.00\",\n" +
-                " \"currency\":\"IDR\"\n" +
-                " },\n" +
-                " \"billAmountLabel\":\"Total Tagihan\",\n" +
-                " \"billAmountValue\":\"Rp. 50.000,-\",\n" +
-                " \"additionalInfo\":{\n" +
-                " }\n" +
-                " }\n" +
-                " ],\n" +
-                " \"freeTexts\":[\n" +
-                " {\n" +
-                " \"english\":\"Free text\",\n" +
-                " \"indonesia\":\"Tulisan bebas\"\n" +
-                " }],\n" +
-                " \"virtualAccountTrxType\":\"1\",\n" +
-                " \"feeAmount\":{\n" +
-                " \"value\":\"12345678.00\",\n" +
-                " \"currency\":\"IDR\"\n" +
-                " },\n" +
-                " \"productName\":\"Pendidikan\",\n" +
-                " \"additionalInfo\":{\n" +
-                " \"deviceId\":\"12345679237\",\n" +
-                " \"channel\":\"mobilephone\"\n" +
-                " }\n" +
-                " }\n" +
+                "   \"responseCode\":2003400,\n" +
+                "   \"responseMessage\":\"Success\",\n" +
+                "   \"virtualAccountdata\":{\n" +
+                "      \"paymentFlagReason\":{\n" +
+                "         \"english\":\"Success\",\n" +
+                "         \"indonesia\":\"Sukses\"\n" +
+                "      },\n" +
+                "      \"partnerServiceId\":\"  088899\",\n" +
+                "      \"customerNo\":12345678901234567890,\n" +
+                "      \"virtualAccountNo\":\"  08889912345678901234567890\",\n" +
+                "      \"inquiryRequestId\":\"abcdef-123456-abcdef\",\n" +
+                "      \"paymentRequestId\":\"abcdef-123456-abcdef\",\n" +
+                "      \"partnerReferenceNo\":\"abcdef-123456-abcdef\",\n" +
+                "      \"trxDateTime\":\"2020-12-21T14:56:11+07:00\",\n" +
+                "      \"paymentStatus\":\"In Progress\",\n" +
+                "      \"additionalInfo\":{\n" +
+                "     \n" +
+                "      }\n" +
+                "   }\n" +
                 "}";
         ObjectMapper objectMapper =
                 new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -508,7 +486,7 @@ public class transferVAv1Controller {
     }
 
     @SneakyThrows
-    @GetMapping("/report")
+    @PostMapping("/report")
     public ResponseEntity<?> report(@RequestHeader(value="Authorization", required=false) String authorization,
                                     @RequestHeader(value="Authorization-Customer", required=false) String authorizationcustomer,
                                     @RequestHeader(value="X-TIMESTAMP", required=false) String timestamp,
