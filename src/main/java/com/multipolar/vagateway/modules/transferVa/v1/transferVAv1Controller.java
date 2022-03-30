@@ -3,18 +3,27 @@ package com.multipolar.vagateway.modules.transferVa.v1;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 
 @Slf4j
 @RestController
 @RequestMapping("/1.0/transfer-va")
 public class transferVAv1Controller {
+
+    @Value("${callback.notify-payment-intrabank}")
+    private String callbackNotifyPaymentIntrabank;
 
     @SneakyThrows
     @PostMapping("/inquiry")
@@ -86,7 +95,42 @@ public class transferVAv1Controller {
                 new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.registerModule(new JavaTimeModule());
         Map<String, Object> responBody = objectMapper.readValue(respon, Map.class);
-        log.info("Client IP : "+request.getRemoteAddr()+", Header : "+header+", Request : POST /1.0/transfer-va/payment "+requestBody+", Response : "+responBody);
+        log.info("Client IP : "+request.getRemoteAddr()+", Request : POST /1.0/transfer-va/payment, Header: "+header+", requestBody: "+requestBody+", responBody: "+responBody);
+
+        //callback from payment to notify-payment-intrabank
+        HttpResponse<JsonNode> jsonResponse
+                = Unirest.post(callbackNotifyPaymentIntrabank)
+                .header("Content-Type", "application/json")
+                .header("Authorization", authorization)
+                .header("Authorization-Customer", authorizationCustomer)
+                .header("X-TIMESTAMP", xTimestamp)
+                .header("X-SIGNATURE", xSignature)
+                .header("X-ORIGIN", xOrigin)
+                .header("X-PARTNER-ID", xPartnerId)
+                .header("X-EXTERNAL-ID", xExternalId)
+                .header("X-IP-ADDRESS", xIpAddress)
+                .header("X-DEVICE-ID", xDeviceId)
+                .header("X-LATITUDE", xLatitude)
+                .header("X-LONGITUDE", xLongitude)
+                .header("CHANNEL-ID", channelId)
+                .body("{\n "+
+                        "    \"partnerServiceId\": \""+requestBody.get("partnerServiceId")+"\",\n" +
+                                "    \"customerNo\": \""+requestBody.get("customerNo")+"\",\n" +
+                                "    \"virtualAccountNo\": \""+requestBody.get("virtualAccountNo")+"\",\n" +
+                                "    \"inquiryRequestId\": \"abcdef-123456-abcdef\",\n" +
+                                "    \"paymentRequestId\": \""+requestBody.get("paymentRequestId")+"\",\n" +
+                                "    \"partnerReferenceNo\": \"abcdef-123456-abcdef\",\n" +
+                                "    \"trxDateTime\": \""+requestBody.get("trxDateTime")+"\",\n" +
+                                "    \"paymentStatus\": \"Success\",\n" +
+                                "    \"paymentFlagReason\": {\n" +
+                                "        \"english\": \"Success\",\n" +
+                                "        \"indonesia\": \"Sukses\"\n" +
+                                "    },\n" +
+                                "    \"additionalInfo\": {}\n" +
+                                "}")
+                .asJson();
+        log.info("callback from payment to notify-payment-intrabank => "+jsonResponse.getStatus()+" "+jsonResponse.getBody());
+
         return ResponseEntity.ok().body(responBody);
     }
 
