@@ -3,9 +3,9 @@ package com.multipolar.vagateway.modules.transferVa.v1;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Map;
 
 @Slf4j
@@ -98,6 +96,22 @@ public class transferVAv1Controller {
         log.info("Client IP : "+request.getRemoteAddr()+", Request : POST /1.0/transfer-va/payment, Header: "+header+", requestBody: "+requestBody+", responBody: "+responBody);
 
         //callback from payment to notify-payment-intrabank
+        String callbackRequestBody = "{\n "+
+                "    \"partnerServiceId\": \""+requestBody.get("partnerServiceId")+"\",\n" +
+                "    \"customerNo\": \""+requestBody.get("customerNo")+"\",\n" +
+                "    \"virtualAccountNo\": \""+requestBody.get("virtualAccountNo")+"\",\n" +
+                "    \"inquiryRequestId\": \"abcdef-123456-abcdef\",\n" +
+                "    \"paymentRequestId\": \""+requestBody.get("paymentRequestId")+"\",\n" +
+                "    \"partnerReferenceNo\": \"abcdef-123456-abcdef\",\n" +
+                "    \"trxDateTime\": \""+requestBody.get("trxDateTime")+"\",\n" +
+                "    \"paymentStatus\": \"Success\",\n" +
+                "    \"paymentFlagReason\": {\n" +
+                "        \"english\": \"Success\",\n" +
+                "        \"indonesia\": \"Sukses\"\n" +
+                "    },\n" +
+                "    \"additionalInfo\": {}\n" +
+                "}";
+        Unirest.config().verifySsl(false);
         HttpResponse<JsonNode> jsonResponse
                 = Unirest.post(callbackNotifyPaymentIntrabank)
                 .header("Content-Type", "application/json")
@@ -113,23 +127,9 @@ public class transferVAv1Controller {
                 .header("X-LATITUDE", xLatitude)
                 .header("X-LONGITUDE", xLongitude)
                 .header("CHANNEL-ID", channelId)
-                .body("{\n "+
-                        "    \"partnerServiceId\": \""+requestBody.get("partnerServiceId")+"\",\n" +
-                                "    \"customerNo\": \""+requestBody.get("customerNo")+"\",\n" +
-                                "    \"virtualAccountNo\": \""+requestBody.get("virtualAccountNo")+"\",\n" +
-                                "    \"inquiryRequestId\": \"abcdef-123456-abcdef\",\n" +
-                                "    \"paymentRequestId\": \""+requestBody.get("paymentRequestId")+"\",\n" +
-                                "    \"partnerReferenceNo\": \"abcdef-123456-abcdef\",\n" +
-                                "    \"trxDateTime\": \""+requestBody.get("trxDateTime")+"\",\n" +
-                                "    \"paymentStatus\": \"Success\",\n" +
-                                "    \"paymentFlagReason\": {\n" +
-                                "        \"english\": \"Success\",\n" +
-                                "        \"indonesia\": \"Sukses\"\n" +
-                                "    },\n" +
-                                "    \"additionalInfo\": {}\n" +
-                                "}")
+                .body(callbackRequestBody)
                 .asJson();
-        log.info("callback from payment to notify-payment-intrabank => "+jsonResponse.getStatus()+" "+jsonResponse.getBody());
+        log.info("callback from payment to notify-payment-intrabank =>\n Request = RequestHeader"+header+"\n RequestBody: "+callbackRequestBody+"\n, Response = "+jsonResponse.getStatus()+"\n ResponseHeader: "+jsonResponse.getHeaders()+"\n ResposeBody: "+jsonResponse.getBody());
 
         return ResponseEntity.ok().body(responBody);
     }
