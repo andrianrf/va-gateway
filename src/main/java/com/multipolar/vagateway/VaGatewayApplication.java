@@ -10,6 +10,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class VaGatewayApplication {
 
 	public static void main(String[] args) {
+//		String test = "Kode OTP:&nbsp; ${otp} Ref: ${ref} berlaku 5 menit.";
+//		String echo = test.replace("${otp}", "1234").replace("${ref}", "456789");
+//		System.out.println("ini test => "+echo);
+
 		SpringApplication.run(VaGatewayApplication.class, args);
 	}
 
