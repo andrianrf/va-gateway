@@ -1,6 +1,7 @@
 package com.multipolar.vagateway.modules.rootController;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +16,17 @@ import java.util.Map;
 @RequestMapping("/")
 public class rootController {
 
+
+    @Value("${default.message.test}")
+    private String defaultMessageTest;
+
     @GetMapping("/test")
-    public ResponseEntity<?> test(@RequestParam(defaultValue = "ok") String message, HttpServletRequest request) {
+    public ResponseEntity<?> test(@RequestParam(defaultValue = "") String message, HttpServletRequest request) {
+
+        if(message.equals("")){
+            message = defaultMessageTest;
+        }
+
         Map<String, Object> map = new HashMap<>();
         map.put("message", message);
         map.put("requestDate", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
