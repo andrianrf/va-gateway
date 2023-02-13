@@ -1,5 +1,13 @@
 HELP.md
-target/
+target/classes
+target/generated-sources
+target/generated-test-sources
+target/jaxb2
+target/maven-archiver
+target/maven-status
+target/surefire-reports
+target/test-classes
+target/*.jar.original
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
