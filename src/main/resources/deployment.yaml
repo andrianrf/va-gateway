@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: va-gateway
+  name: va-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: va-gateway
+  template:
+    metadata:
+      labels:
+        app: va-gateway
+    spec:
+      containers:
+        - image: docker.io/andrianrf/va-gateway:latest
+          imagePullPolicy: IfNotPresent
+          name: va-gateway
+          ports:
+            - containerPort: 8080
+          resources: {}
+          volumeMounts:
+            - mountPath: /log/
+              name: va-va-gateway-log-pvc
+          env:
+            - name: "testDefaultMessage"
+              value: "test"
+            - name: "testTimeoutSecond"
+              value: "0"
+      volumes:
+        - name: va-va-gateway-log-pvc
+          emptyDir: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: va-gateway
+  labels:
+    app: va-gateway
+spec:
+  type: ClusterIP
+  selector:
+    app: va-gateway
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+---
+
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: va-gateway
+  labels:
+    app: va-gateway
+  annotations:
+    haproxy.router.openshift.io/timeout: 120s
+spec:
+  host: va-gateway-bifast.apps.ocp-dev.banksumselbabel.com
+  to:
+    kind: Service
+    name: va-gateway
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  wildcardPolicy: None
+
