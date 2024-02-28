@@ -62,7 +62,6 @@ metadata:
   annotations:
     haproxy.router.openshift.io/timeout: 120s
 spec:
-  host: va-gateway-bifast.apps.ocp-dev.banksumselbabel.com
   to:
     kind: Service
     name: va-gateway
