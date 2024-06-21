@@ -1,36 +1,3 @@
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: va-va-gateway-log-pv
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: ""
-  nfs:
-    path: /nfs-ocp/va/va-gateway-pv/log
-    server: nfs.ocp.banksumselbabel.com
-
----
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: va-va-gateway-log-pvc
-spec:
-  accessModes:
-    - ReadWriteMany
-  volumeMode: Filesystem
-  resources:
-    requests:
-      storage: 1Gi
-  volumeName: va-va-gateway-log-pv
-  storageClassName: ''
-
----
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -48,7 +15,7 @@ spec:
         app: va-gateway
     spec:
       containers:
-        - image: docker.io/visiondgmlpt/va-gateway:prod-bsb
+        - image: docker.io/andrianrf/va-gateway:latest
           imagePullPolicy: IfNotPresent
           name: va-gateway
           ports:
@@ -57,12 +24,14 @@ spec:
           volumeMounts:
             - mountPath: /log/
               name: va-va-gateway-log-pvc
+          env:
+            - name: "testDefaultMessage"
+              value: "test"
+            - name: "testTimeoutSecond"
+              value: "0"
       volumes:
         - name: va-va-gateway-log-pvc
-          persistentVolumeClaim:
-            claimName: va-va-gateway-log-pvc
-      imagePullSecrets:
-        - name: regcred
+          emptyDir: {}
 
 ---
 
@@ -81,3 +50,22 @@ spec:
       protocol: TCP
       port: 8080
       targetPort: 8080
+
+---
+
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: va-gateway
+  labels:
+    app: va-gateway
+  annotations:
+    haproxy.router.openshift.io/timeout: 120s
+spec:
+  to:
+    kind: Service
+    name: va-gateway
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  wildcardPolicy: None
