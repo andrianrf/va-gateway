@@ -25,6 +25,10 @@ spec:
             - mountPath: /log/
               name: va-va-gateway-log-pvc
           env:
+            - name: "serverPort"
+              value: "8080"
+            - name: "contextPath"
+              value: "/va-gateway"
             - name: "testDefaultMessage"
               value: "test"
             - name: "testTimeoutSecond"
