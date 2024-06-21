@@ -14,8 +14,8 @@ COPY target/*.jar app.jar
 
 USER 1000
 
-EXPOSE 9091
+EXPOSE 8080
 
-HEALTHCHECK CMD curl --fail http://localhost:9091/va-gateway/actuator/health || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:8080/va-gateway/actuator/health || exit 1
 
 ENTRYPOINT ["java", "-jar", "app.jar","-Djava.net.preferIPv4Stack=true"]
