@@ -20,7 +20,7 @@ spec:
           name: va-gateway
           ports:
             - containerPort: 8080
-          resources: {}
+          resources: { }
           volumeMounts:
             - mountPath: /log/
               name: va-va-gateway-log-pvc
@@ -35,7 +35,7 @@ spec:
               value: "0"
       volumes:
         - name: va-va-gateway-log-pvc
-          emptyDir: {}
+          emptyDir: { }
 
 ---
 
